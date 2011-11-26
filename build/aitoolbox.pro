@@ -26,12 +26,26 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     glhelper.cpp \
     widget.cpp \
-    visualiserdialog.cpp
+    visualiserdialog.cpp \
+    ../src/widget.cpp \
+    ../src/visualiserdialog.cpp \
+    ../src/mainwindow.cpp \
+    ../src/main.cpp \
+    ../src/glhelper.cpp
 
 HEADERS  += mainwindow.h \
     glhelper.h \
     widget.h \
-    visualiserdialog.h
+    visualiserdialog.h \
+    ../inc/widget.h \
+    ../inc/visualiserdialog.h \
+    ../inc/mainwindow.h \
+    ../inc/glhelper.h
 
 FORMS    += mainwindow.ui \
-    gldialog.ui
+    gldialog.ui \
+    ../ui/mainwindow.ui \
+    ../ui/gldialog.ui
+
+
+
