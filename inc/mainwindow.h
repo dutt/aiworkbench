@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtGui/QMainWindow>
 
 class VisualiserDialog;
 
-namespace Ui {
+namespace Ui
+{
     class MainWindow;
 }
 
@@ -23,8 +24,8 @@ private slots:
 private:
     void connectWiring();
 
-    Ui::MainWindow *ui;
     VisualiserDialog* mVisualiser;
+    Ui::MainWindow* ui;
 };
 
 #endif // MAINWINDOW_H

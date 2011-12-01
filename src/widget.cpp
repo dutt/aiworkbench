@@ -8,8 +8,21 @@
 
 #include <iostream>
 using namespace std;
-GlWidget::GlWidget(GlHelper *helper, QWidget *parent)
-    : QGLWidget(QGLFormat(QGL::SampleBuffers), parent), mHelper(helper), mElapsed(0) {
+
+Square::Square() :
+    mX(0), mY(0), mWidth(0), mHeight(0), mColor(Qt::red)
+{ }
+
+Square::Square(int x, int y, int height, int width, Qt::GlobalColor color)
+    : mX(x), mY(y), mHeight(height), mWidth(width), mColor(color)
+{ }
+
+bool Square::is_at(int x, int y) {
+    return (x > mX && x < mX + mWidth) && (y > mY && y < mY + mHeight);
+}
+
+GlWidget::GlWidget(QWidget *parent)
+    : QGLWidget(QGLFormat(QGL::SampleBuffers), parent), mElapsed(0) {
     setAutoFillBackground(false);
 
     connect(this, SIGNAL(clicked()), this, SLOT(on_clicked()));
@@ -23,60 +36,69 @@ GlWidget::GlWidget(GlHelper *helper, QWidget *parent)
 void GlWidget::tick() {
     int size = 20;
     for(SquareIt it = mSquares.begin(); it != mSquares.end(); ++it) {
-        int dir = rand()%9;
+        //int dir = rand()%9;
+        int dir = 9;
         int x = it->x();
         int y = it->y();
         switch(dir) {
         case 0:
-            it->moveTo(x-size, y-size);
+            it->move_to(x-size, y-size);
             break;
         case 1:
-            it->moveTo(x, y-size);
+            it->move_to(x, y-size);
             break;
         case 2:
-            it->moveTo(x+size, y-size);
+            it->move_to(x+size, y-size);
             break;
         case 3:
-            it->moveTo(x-size, y);
+            it->move_to(x-size, y);
             break;
         case 4:
-            it->moveTo(x+size, y);
+            it->move_to(x+size, y);
             break;
         case 5:
-            it->moveTo(x-size, y+size);
+            it->move_to(x-size, y+size);
             break;
         case 6:
-            it->moveTo(x, y+size);
+            it->move_to(x, y+size);
             break;
         case 7:
-            it->moveTo(x+size, y+size);
+            it->move_to(x+size, y+size);
             break;
         }
         if(it->x() < 0) {
-            it->moveTo(this->size().width(), it->y());
+            it->move_to(this->size().width(), it->y());
         }
         else if(it->x() > this->size().width()) {
-            it->moveTo(0, it->y());
+            it->move_to(0, it->y());
         }
         if(it->y() < 0) {
-            it->moveTo(it->x(), this->size().height());
+            it->move_to(it->x(), this->size().height());
         }
         else if(it->y() > this->size().height()) {
-            it->moveTo(it->x(), 0);
+            it->move_to(it->x(), 0);
         }
     }
     repaint();
 }
 
 void GlWidget::mousePressEvent(QMouseEvent* event) {
-    QRect* r = new QRect(event->pos().x(), event->pos().y(), 20, 20);
-    mSquares.push_back(*r);
+    //QRect* r = new QRect(event->pos().x(), event->pos().y(), 20, 20);
+    //mSquares.push_back(*r);
+    for(SquareIt it = mSquares.begin(); it != mSquares.end(); ++it)    {
+        if(it->is_at(event->pos().x(), event->pos().y()))        {
+
+        }
+    }
 }
 
 void GlWidget::paintEvent(QPaintEvent *event) {
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    mHelper->paint(&painter, event, mSquares);
+    painter.fillRect(event->rect(), mBackground);
+    for(SquareIt it = mSquares.begin(); it != mSquares.end(); ++it)    {
+        painter.fillRect(it->rect(), mSquare);
+    }
     painter.end();
 }

@@ -10,11 +10,12 @@ VisualiserDialog::VisualiserDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mWidget = new GlWidget(&mHelper, this);
+    mWidget = new GlWidget(this);
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(mWidget);
     setLayout(layout);
 
+    setAttribute(Qt::WA_QuitOnClose);
     setWindowTitle("Visualiser");
 }
 

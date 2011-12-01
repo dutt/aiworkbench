@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include "visualiserdialog.h"
+#include "scriptengine.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowTitle("AI Toolbox");
+    setAttribute(Qt::WA_QuitOnClose);
 
     mVisualiser = new VisualiserDialog(this);
     mVisualiser->setModal(false);

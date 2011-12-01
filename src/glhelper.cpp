@@ -1,6 +1,6 @@
 #include "glhelper.h"
 
-#include <QtGui>
+#include <QtGui/QtGui>
 
 GlHelper::GlHelper() {
     mBackground = QBrush(QColor(0, 180, 0));
@@ -10,8 +10,5 @@ GlHelper::GlHelper() {
 }
 
 void GlHelper::paint(QPainter *painter, QPaintEvent *event, std::list<QRect> squares) {
-    painter->fillRect(event->rect(), mBackground);
-    for(SquareIt it = squares.begin(); it != squares.end(); ++it) {
-        painter->fillRect(*it, mSquare);
-    }
+
 }

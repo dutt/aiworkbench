@@ -1,7 +1,7 @@
 #ifndef GLDIALOG_H
 #define GLDIALOG_H
 
-#include <QDialog>
+#include <QtGui/QDialog>
 
 #include "glhelper.h"
 
@@ -23,7 +23,6 @@ public:
 private:
     GlWidget* mWidget;
     Ui::GlDialog *ui;
-    GlHelper mHelper;
 };
 
 #endif // GLDIALOG_H
